@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import sys
 
 verbose = 0
@@ -8,7 +8,7 @@ prologue = '"""' + """Opcodes file.
     Tables for the assembly of 6502-family instructions, mapping
     opcodes and addressing modes to binary instructions.""" + '"""' + """
 
-# Copyright 2002-2012 Michael C. Martin and additional contributors.
+# Copyright 2002-2014 Michael C. Martin and additional contributors.
 # You may use, modify, and distribute this file under the MIT
 # license: See README for details.
 
@@ -17,43 +17,56 @@ prologue = '"""' + """Opcodes file.
 # the tables in tools/opcodes. Edit those tables, not these.
 
 # Names of addressing modes
-modes = ["Implied",          # 0
-         "Immediate",        # 1
-         "Zero Page",        # 2
-         "Zero Page, X",     # 3
-         "Zero Page, Y",     # 4
-         "Absolute",         # 5
-         "Absolute, X",      # 6
-         "Absolute, Y",      # 7
-         "(Absolute)",       # 8
-         "(Absolute, X)",    # 9
-         "(Absolute), Y",   # 10
-         "(Zero Page)",     # 11
-         "(Zero Page, X)",  # 12
-         "(Zero Page), Y",  # 13
-         "Relative"]        # 14
+modes = ["Implied",
+         "Immediate",
+         "ImmediateLong",
+         "Zero Page",
+         "Zero Page, X",
+         "Zero Page, Y",
+         "Absolute",
+         "Absolute, X",
+         "Absolute, Y",
+         "(Absolute)",
+         "(Absolute, X)",
+         "(Absolute), Y",
+         "(Absolute), Z",
+         "(Zero Page)",
+         "(Zero Page, X)",
+         "(Zero Page), Y",
+         "(Zero Page, SP), Y",
+         "(Zero Page), Z",
+         "Relative",
+         "RelativeLong",
+         "Zero Page, Relative"]
 
 
 # Lengths of the argument
-lengths = [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1]
+lengths = [0, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2]
 """
 
 # These values should match the ones in the prologue string.
-modes = ["Implied",          # 0
-         "Immediate",        # 1
-         "Zero Page",        # 2
-         "Zero Page, X",     # 3
-         "Zero Page, Y",     # 4
-         "Absolute",         # 5
-         "Absolute, X",      # 6
-         "Absolute, Y",      # 7
-         "(Absolute)",       # 8
-         "(Absolute, X)",    # 9
-         "(Absolute), Y",   # 10
-         "(Zero Page)",     # 11
-         "(Zero Page, X)",  # 12
-         "(Zero Page), Y",  # 13
-         "Relative"]        # 14
+modes = ["Implied",
+         "Immediate",
+         "Immediate.W",
+         "Zero Page",
+         "Zero Page, X",
+         "Zero Page, Y",
+         "Absolute",
+         "Absolute, X",
+         "Absolute, Y",
+         "(Absolute)",
+         "(Absolute, X)",
+         "(Absolute), Y",
+         "(Absolute), Z",
+         "(Zero Page)",
+         "(Zero Page, X)",
+         "(Zero Page), Y",
+         "(Zero Page, SP), Y",
+         "(Zero Page), Z",
+         "Relative",
+         "RelativeLong",
+         "Zero Page, Relative"]
+
 
 flatmodes = [x.lower() for x in modes]
 
@@ -142,7 +155,7 @@ def dump_map(m, prologue=''):
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        chipsets = argv[1:]
+        chipsets = sys.argv[1:]
     else:
         chipsets = ['chipsets.txt']
     archs = []

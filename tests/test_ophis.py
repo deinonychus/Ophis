@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import sys
 import subprocess
@@ -82,6 +82,7 @@ def test_basic():
         test_file('Undocumented instructions', 'test6510.oph', 'test6510.bin',
                   ['-u'])
         test_file('65c02 extensions', 'test65c02.oph', 'test65c02.bin', ['-c'])
+        test_file('4502 extensions', 'test4502.oph', 'test4502.bin', ['-4'])
         test_file('Wide instructions', 'testwide.oph', 'testwide.bin', ['-c'])
         test_file('Branch restrictions (6502)', 'longbranch.oph', None,
                   ['--no-branch-extend'])
@@ -459,5 +460,7 @@ if __name__ == '__main__':
 
     if failed > 0:
         print "\nTotal test case failures: %d" % failed
+        sys.exit(1)
     else:
         print "\nAll test cases succeeded"
+        sys.exit(0)
